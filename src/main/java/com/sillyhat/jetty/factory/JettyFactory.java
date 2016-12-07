@@ -114,13 +114,14 @@ public class JettyFactory {
 
 	public void reloadContext(Server server) throws Exception {
 		WebAppContext context = (WebAppContext) server.getHandler();
-		System.out.println("Application reloading");
+		logger.info("Application reloading");
 		context.stop();
 		WebAppClassLoader classLoader = new WebAppClassLoader(context);
 		classLoader.addClassPath("target/classes");
 		classLoader.addClassPath("target/test-classes");
 		context.setClassLoader(classLoader);
+		logger.info("Application restart");
 		context.start();
-		System.out.println("Application reloaded");
+		logger.info("Application reloaded");
 	}
 }
